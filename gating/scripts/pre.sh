@@ -28,7 +28,7 @@ echo "+-------------------- START ENV VARS --------------------+"
 
 # If we're not using a pre-saved rpc-openstack image, then deploy the
 # necessary OpenStack infrastructure and services.
-if [[ ! ${RE_JOB_IMAGE} =~ _snapshot$ && ${RE_JOB_NAME} =~ ^PM.*$ ]]; then
+if [[ ! ${RE_JOB_IMAGE} =~ _snapshot$ && ${RE_JOB_NAME} =~ ^PM.*$ && ! ${RE_JOB_IMAGE} =~ .*mnaio.* ]]; then
 
   # Install required prerequisites
   apt-get update
@@ -65,11 +65,9 @@ if [[ ! ${RE_JOB_IMAGE} =~ _snapshot$ && ${RE_JOB_NAME} =~ ^PM.*$ ]]; then
     clone_openstack
     gate_deploy_${RE_JOB_SCENARIO}
   esac
-
-else
-  # Install Designate when snapshot scenario
-  cd ${MY_BASE_DIR}
-  ${MY_BASE_DIR}/scripts/deploy.sh
 fi
+
+cd ${MY_BASE_DIR}
+${MY_BASE_DIR}/scripts/deploy.sh
 
 echo "Pre gate job ended"
