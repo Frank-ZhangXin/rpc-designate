@@ -31,8 +31,8 @@
   hosts: designate_all
   user: root
   pre_tasks:
-    - include: "{{ oa_dir }}"/playbooks/common-tasks/os-lxc-container-setup.yml
-    - include: "{{ oa_dir }}"/playbooks/common-tasks/rabbitmq-vhost-user.yml
+    - include: "{{ oa_dir }}/playbooks/common-tasks/os-lxc-container-setup.yml"
+    - include: "{{ oa_dir }}/playbooks/common-tasks/rabbitmq-vhost-user.yml"
       static: no
       vars:
         user: "{{ designate_rabbitmq_userid }}"
@@ -42,7 +42,7 @@
       when:
         - inventory_hostname == groups['designate_all'][0]
         - groups[designate_rabbitmq_host_group] | length > 0
-    - include: "{{ oa_dir }}"/playbooks/common-tasks/mysql-db-user.yml
+    - include: "{{ oa_dir }}/playbooks/common-tasks/mysql-db-user.yml"
       static: no
       vars:
         user_name: "{{ designate_galera_user }}"
